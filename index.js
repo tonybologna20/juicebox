@@ -1,3 +1,17 @@
+require("dotenv").config();
+
+const jwt = require("jsonwebtoken");
+const token = jwt.sign({ id: 3, username: "joshua" }, "server secret", {
+  expiresIn: "1 week",
+});
+token;
+
+const recoveredData = jwt.verify(token, "server secret");
+
+recoveredData;
+
+jwt.verify(token, "server secret");
+
 const PORT = 3000;
 const express = require("express");
 const server = express();
@@ -11,6 +25,7 @@ const apiRouter = require("./api");
 server.use("/api", apiRouter);
 
 const morgan = require("morgan");
+
 server.use(morgan("dev"));
 
 server.use(express.json());
